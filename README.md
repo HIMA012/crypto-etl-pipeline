@@ -10,17 +10,7 @@ An automated data pipeline that extracts real-time cryptocurrency prices from th
 
 ## 🏗️ Architecture
 
-```mermaid
-graph LR
-    A[CoinGecko API<br>Free, No Key] -->|requests| B(Extract<br>Top 20 Coins)
-    B -->|DataFrame| C(Transform<br>Pandas Clean & Enrich)
-    C -->|psycopg2| D[(PostgreSQL<br>Structured DB)]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fdd,stroke:#333,stroke-width:2px
-```
+![Crypto ETL Pipeline Architecture](assets/architecture.png)
 
 ---
 
