@@ -1,5 +1,7 @@
 # 🪙 Crypto Price ETL Pipeline
 
+## Built by Ibrahim — Data Engineering Portfolio
+
 An automated data pipeline that extracts real-time cryptocurrency prices from the **CoinGecko API**, transforms and enriches the data using **Python & Pandas**, and loads it into a **PostgreSQL** database.
 
 > Built as Project 1 of a Data Engineering Portfolio — demonstrating core ETL skills.
@@ -8,13 +10,15 @@ An automated data pipeline that extracts real-time cryptocurrency prices from th
 
 ## 🏗️ Architecture
 
-```
-┌─────────────────┐     ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-│  CoinGecko API  │────▶│  Extract         │────▶│  Transform       │────▶│  PostgreSQL      │
-│                 │     │  (requests)      │     │  (Pandas)        │     │  (psycopg2)      │
-│  Free, no key   │     │  Top 20 coins    │     │  Clean + Enrich  │     │  Structured DB   │
-└─────────────────┘     └──────────────────┘     └──────────────────┘     └──────────────────┘
-```
+graph LR
+    A[CoinGecko API<br>Free, No Key] -->|requests| B(Extract<br>Top 20 Coins)
+    B -->|DataFrame| C(Transform<br>Pandas Clean & Enrich)
+    C -->|psycopg2| D[(PostgreSQL<br>Structured DB)]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fdd,stroke:#333,stroke-width:2px
 
 ---
 
@@ -72,49 +76,7 @@ crypto-etl-pipeline/
 
 ---
 
-## 🚀 Quick Start
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/crypto-etl-pipeline.git
-cd crypto-etl-pipeline
-```
-
-### 2. Set up a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate        # Linux / Mac
-venv\Scripts\activate           # Windows
-```
-
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Set up PostgreSQL
-```bash
-# Create the database
-psql -U postgres -c "CREATE DATABASE crypto_db;"
-
-# Create the table and indexes
-psql -U postgres -d crypto_db -f sql/create_tables.sql
-```
-
-### 5. Configure environment variables
-```bash
-cp .env.example .env
-# Open .env and fill in your PostgreSQL credentials
-```
-
-### 6. Run the pipeline
-```bash
-python main.py
-```
-
----
-
-## 📋 Sample Output
 
 ```
 2024-01-15 10:30:00 | INFO     | =======================================================
@@ -173,8 +135,4 @@ ORDER BY run_date DESC;
 
 ---
 
-## 🔮 What's Next
 
-- **Project 2** — Schedule this pipeline with Apache Airflow (DAGs + retries)
-- **Project 3** — Real-time streaming version with Kafka + Spark
-- **Project 4** — Move to AWS (S3 → Glue → Athena → QuickSight)
